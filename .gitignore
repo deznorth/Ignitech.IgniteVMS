@@ -9,6 +9,7 @@
 obj
 bin
 .vs/
+.env
 
 # Front-end build stuff
 node_modules

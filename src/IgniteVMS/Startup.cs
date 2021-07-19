@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using Autofac;
+using IgniteVMS.DataAccess;
+using IgniteVMS.DataAccess.Modules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -70,11 +72,19 @@ namespace IgniteVMS
         // Here we'll register repositories and services
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            var connectionStringResolver = new ConnectionStringResolver
+            {
+                DB_HOST = configuration.GetValue<string>("DB_HOST"),
+                DB_PORT = configuration.GetValue<string>("DB_PORT"),
+                DB_NAME = configuration.GetValue<string>("DB_NAME"),
+                DB_USER = configuration.GetValue<string>("DB_USER"),
+                DB_PASS = configuration.GetValue<string>("DB_PASS")
+            };
+
             // Modules
-            //builder.RegisterModule(new ModuleBuilder()
-            //    .UseDefaultConfigManagerCore()
-            //    .UseConnectionOwner<GamestakDb>()
-            //    .Build());
+            builder.RegisterModule(new ModuleBuilder()
+                .UseConnectionOwner(connectionStringResolver)
+                .Build());
 
             // Repositories
             //builder.RegisterType<UserRepository>().AsImplementedInterfaces().SingleInstance();

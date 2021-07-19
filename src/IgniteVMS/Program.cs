@@ -1,6 +1,9 @@
 using System;
+using System.IO;
 using Autofac.Extensions.DependencyInjection;
+using IgniteVMS.Configuration;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -11,6 +14,9 @@ namespace IgniteVMS
     {
         public static void Main(string[] args)
         {
+            var root = Directory.GetCurrentDirectory();
+            var dotenv = Path.Combine(root, ".env");
+            DotEnv.Load(dotenv);
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -29,6 +35,10 @@ namespace IgniteVMS
                     }
                 })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddEnvironmentVariables();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
