@@ -2,3 +2,17 @@
 .dbeaver/
 .project
 .settings
+
+# Other stuff
+**/.DS_Store
+.idea
+obj
+bin
+.vs/
+
+# Front-end build stuff
+node_modules
+yarn-error.log
+
+src/Gamestak/wwwroot/dist
+src/gamestak-client/dist
