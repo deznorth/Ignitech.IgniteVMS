@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using IgniteVMS.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,12 +12,15 @@ namespace IgniteVMS.Controllers.API
     public class ExampleController : Controller
     {
         private readonly ILogger<ExampleController> logger;
+        private readonly IVolunteerService volunteerService;
 
         public ExampleController(
-            ILogger<ExampleController> logger
+            ILogger<ExampleController> logger,
+            IVolunteerService volunteerService
         )
         {
             this.logger = logger;
+            this.volunteerService = volunteerService;
         }
 
         /// <summary>
@@ -24,11 +28,12 @@ namespace IgniteVMS.Controllers.API
         /// </summary>
         /// <returns>A hello world string</returns>
         [HttpGet]
-        public async Task<IActionResult> GetSomeResult()
+        public async Task<IActionResult> GetAllVolunteerIDs()
         {
             try
             {
-                return Ok("Hello World!");
+                var volunteerIDs = await volunteerService.GetAllVolunteerIDs();
+                return Ok(volunteerIDs);
             }
             catch (Exception e)
             {

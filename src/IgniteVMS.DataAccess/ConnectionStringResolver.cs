@@ -1,5 +1,5 @@
 ﻿
-namespace IgniteVMS.DataAccess.Modules
+namespace IgniteVMS.DataAccess
 {
     public class ConnectionStringResolver
     {
@@ -9,6 +9,6 @@ namespace IgniteVMS.DataAccess.Modules
         public string DB_USER { get; set; }
         public string DB_PASS { get; set; }
 
-        public string getConnectionString => $"Host={DB_HOST};Port={DB_PORT};Username={DB_USER};Password={DB_PASS};Database={DB_NAME}";
+        public string getConnectionString => $"Host={DB_HOST};Port={DB_PORT};Username={DB_USER};Password={DB_PASS};Database={DB_NAME};SSL Mode=Require;Trust Server Certificate=true";
     }
 }

@@ -7,9 +7,8 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.0.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
-    <PackageReference Include="Dapper" Version="2.0.90" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.17" />
-    <PackageReference Include="Npgsql" Version="5.0.7" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
@@ -18,6 +17,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IgniteVMS.DataAccess\IgniteVMS.DataAccess.csproj" />
+    <ProjectReference Include="..\IgniteVMS.Entities\IgniteVMS.Entities.csproj" />
+    <ProjectReference Include="..\IgniteVMS.Repositories\IgniteVMS.Repositories.csproj" />
+    <ProjectReference Include="..\IgniteVMS.Services\IgniteVMS.Services.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
