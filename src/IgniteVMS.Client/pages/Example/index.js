@@ -12,7 +12,7 @@ const ExamplePage = props => {
 
   return (
     <div>
-      <h1>Hello World!</h1>
+      <h1>Hello World! From Demo</h1>
       <h2>This is an example page with some documentation.</h2>
       <p>This page will be removed soon and the route will be replaced by the dashboard page.</p>
       <hr />
