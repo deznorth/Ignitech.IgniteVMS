@@ -1,0 +1,4 @@
+# DBeaver Stuff
+.dbeaver/
+.project
+.settings
