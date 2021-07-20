@@ -6,7 +6,7 @@ IgniteVMS is a Volunteer Management System created as a sort of warm-up project 
 **Group Members:**
 - David Rojas Gonzalez
 - Fernando Jimenez Mendez
-- Jonathan Depaul
+- Jonathan D. Depaul
 - Lucas Graeff
 
 # Project Management Resources
