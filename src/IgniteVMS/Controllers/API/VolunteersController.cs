@@ -9,13 +9,13 @@ namespace IgniteVMS.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExampleController : Controller
+    public class VolunteersController : Controller
     {
-        private readonly ILogger<ExampleController> logger;
+        private readonly ILogger<VolunteersController> logger;
         private readonly IVolunteerService volunteerService;
 
-        public ExampleController(
-            ILogger<ExampleController> logger,
+        public VolunteersController(
+            ILogger<VolunteersController> logger,
             IVolunteerService volunteerService
         )
         {
@@ -26,10 +26,11 @@ namespace IgniteVMS.Controllers.API
         /// <summary>
         /// This is an example endpoint
         /// </summary>
-        /// <returns>A hello world string</returns>
+        /// <returns>All volunteer IDs</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllVolunteerIDs()
         {
+            // This is an example, remove this endpoint when you create the real ones.
             try
             {
                 var volunteerIDs = await volunteerService.GetAllVolunteerIDs();

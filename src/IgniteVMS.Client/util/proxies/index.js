@@ -1,6 +1,6 @@
-import * as UsersProxy from './user';
+import * as VolunteersProxy from './volunteers';
 
 // Root Proxy
 export default {
-  ...UsersProxy,
+  ...VolunteersProxy,
 };

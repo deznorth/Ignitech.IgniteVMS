@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import * as actions from './modules/actions';
+import selectors from './modules/selectors';
 
-const ExamplePage = () => {
-  const dispatch = useDispatch();
+const ExamplePage = props => {
+  const { init, result } = props;
 
   useEffect(() => {
-    dispatch(actions.initialize());
+    init();
   }, []);
 
   return (
@@ -98,8 +99,16 @@ const ExamplePage = () => {
           </ul>
         </p>
       </article>
+      <article>
+        <h3>Result from the example Volunteers API endpoint</h3>
+        <pre>{result}</pre>
+      </article>
     </div>
   );
 };
 
-export default ExamplePage;
+export default connect(state => ({
+  result: selectors.selectExampleResult(state),
+}), {
+  init: actions.initialize,
+})(ExamplePage);

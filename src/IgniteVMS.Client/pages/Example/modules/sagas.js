@@ -1,17 +1,25 @@
-import { all, put, takeEvery } from "redux-saga/effects";
+import { all, put, call, spawn, takeLatest } from "redux-saga/effects";
 import debug from 'debug';
-// import proxies from 'util/proxies';
+import proxies from 'util/proxies';
 import * as actions from './actions';
 
 const log = debug('saga:example');
 
+function* getAllVolunteerIDs() {
+  try {
+    log('Retrieving all volunteer IDs...');
+    const result = yield call(proxies.getAllVolunteerIDs);
+    yield put(actions.exampleAction(result.data));
+  } catch(err) {
+    log('Error retrieving all volunteer IDs');
+  }
+}
+
 function* initialize() {
   log('Initializing');
-  yield all([
-    put(actions.exampleAction('Hello from the example initialize saga!')),
-  ]);
+  yield spawn(getAllVolunteerIDs);
 }
 
 export default [
-  takeEvery(actions.initialize, initialize),
+  takeLatest(actions.initialize, initialize),
 ];

@@ -8,6 +8,6 @@ const INITIAL_STATE = {
 export default handleActions({
   [actions.exampleAction]: (state, { payload }) => ({
     ...state,
-    testMessage: `Message from the example action: ${payload}`,
+    testMessage: `Result from querying for all volunteer IDs:\n${JSON.stringify(payload, null, 2)}`,
   }),
 }, INITIAL_STATE);
