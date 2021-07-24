@@ -1,31 +1,35 @@
-﻿using IgniteVMS.DataAccess;
+﻿using IgniteVMS.DataAccess.Contracts;
+using IgniteVMS.Entities;
 using IgniteVMS.Repositories.Contracts;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using System.Data.Entity;
+using Dapper;
+using System.Linq;
 
 namespace IgniteVMS.Repositories
 {
     public class VolunteerRepository : IVolunteerRepository
     {
         private readonly ILogger<VolunteerRepository> logger;
-        private readonly PostgreSqlContext dbContext;
+        private readonly IConnectionOwner dbConnectionOwner;
 
         public VolunteerRepository(
             ILogger<VolunteerRepository> logger,
-            PostgreSqlContext dbContext
+            IConnectionOwner dbConnectionOwner
         )
         {
             this.logger = logger;
-            this.dbContext = dbContext;
+            this.dbConnectionOwner = dbConnectionOwner;
         }
 
         public async Task<IEnumerable<int>> GetAllVolunteerIDs()
         {
-            return dbContext.Volunteers.FromSqlRaw("SELECT * FROM dbo.\"Volunteers\"").Select(v => v.VolunteerID).ToList();
+            return await dbConnectionOwner.Use(async conn =>
+            {
+                var result = (await conn.QueryAsync<Volunteer>("SELECT * FROM dbo.\"Volunteers\"")).Select(v => v.VolunteerID).ToList();
+                return result;
+            });
         }
     }
 }
