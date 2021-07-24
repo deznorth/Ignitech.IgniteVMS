@@ -2,19 +2,22 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using Autofac;
 using IgniteVMS.DataAccess;
 using IgniteVMS.DataAccess.Modules;
 using IgniteVMS.Repositories;
 using IgniteVMS.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
 
 namespace IgniteVMS
@@ -32,6 +35,28 @@ namespace IgniteVMS
         public void ConfigureServices(IServiceCollection services)
         {
             LogStartup();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidateAudience = false,
+                    ValidIssuer = configuration.GetValue<string>("Jwt:Issuer"),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWT_KEY")))
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        context.Token = context.Request.Cookies["jwt"];
+                        return Task.CompletedTask;
+                    }
+                };
+            });
 
             services.AddMvc();
 
@@ -90,9 +115,15 @@ namespace IgniteVMS
                 .Build());
 
             // Repositories
+            builder.RegisterType<AuthRepository>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<VolunteerRepository>().AsImplementedInterfaces().SingleInstance();
 
             // Services
+            builder.RegisterType<AuthService>()
+                .WithParameter("jwtkey", configuration.GetValue<string>("JWT_KEY"))
+                .WithParameter("jwtissuer", configuration.GetValue<string>("Jwt:Issuer"))
+                .AsImplementedInterfaces()
+                .SingleInstance();
             builder.RegisterType<VolunteerService>().AsImplementedInterfaces().SingleInstance();
         }
 

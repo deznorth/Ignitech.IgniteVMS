@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
 using System.Linq;
+using IgniteVMS.DataAccess.Constants;
 
 namespace IgniteVMS.Repositories
 {
@@ -27,7 +28,12 @@ namespace IgniteVMS.Repositories
         {
             return await dbConnectionOwner.Use(async conn =>
             {
-                var result = (await conn.QueryAsync<Volunteer>("SELECT * FROM dbo.\"Volunteers\"")).Select(v => v.VolunteerID).ToList();
+                var query = @$"
+                    SELECT v.""VolunteerID""
+                    FROM {DbTables.Volunteers} v
+                ";
+
+                var result = (await conn.QueryAsync<int>(query)).ToList();
                 return result;
             });
         }
