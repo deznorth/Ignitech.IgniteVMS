@@ -11,4 +11,8 @@
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IgniteVMS.Entities\IgniteVMS.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

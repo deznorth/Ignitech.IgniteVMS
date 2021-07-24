@@ -3,16 +3,16 @@
 -- Users
 INSERT INTO "Users" ("Username", "Password", "UserRole")
 VALUES
-	('admin', 'admin', 'administrator')
+	('admin', 'jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=', 'administrator') -- PASSWORD IS "admin"
 ON CONFLICT ("Username") DO NOTHING;
 
-INSERT INTO "Users" ("Username", "Password")
+INSERT INTO "Users" ("Username", "Password") -- ALL passwords ARE "password"
 VALUES
-	('jdoe', 'password'), -- John Doe
-	('cklein', 'password'), -- Calvin Klein
-	('madams', 'password'), -- Marie Adams
-	('ljenkins', 'password'), -- Leeroooy Jeeeenkiiinss!
-	('dvader', 'password') -- Darth Vader
+	('jdoe', 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg='), -- John Doe
+	('cklein', 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg='), -- Calvin Klein
+	('madams', 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg='), -- Marie Adams
+	('ljenkins', 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg='), -- Leeroooy Jeeeenkiiinss!
+	('dvader', 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=') -- Darth Vader
 ON CONFLICT ("Username") DO NOTHING;
 
 -- EmergencyContacts

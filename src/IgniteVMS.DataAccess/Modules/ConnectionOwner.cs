@@ -13,6 +13,7 @@ namespace IgniteVMS.DataAccess.Modules
 
         public ConnectionOwner(ConnectionStringResolver connectionStringResolver) =>
             this.connectionString = connectionStringResolver.getConnectionString;
+            
 
         public async Task<TResult> Use<TResult>(Func<NpgsqlConnection, Task<TResult>> func)
         {
