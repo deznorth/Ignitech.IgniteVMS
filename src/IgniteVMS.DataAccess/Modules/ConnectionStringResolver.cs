@@ -1,5 +1,5 @@
 ﻿
-namespace IgniteVMS.DataAccess
+namespace IgniteVMS.DataAccess.Modules
 {
     public class ConnectionStringResolver
     {

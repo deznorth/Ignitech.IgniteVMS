@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using Autofac;
 using IgniteVMS.DataAccess;
+using IgniteVMS.DataAccess.Modules;
 using IgniteVMS.Repositories;
 using IgniteVMS.Services;
 using Microsoft.AspNetCore.Builder;
@@ -69,7 +70,11 @@ namespace IgniteVMS
                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
                 options.IncludeXmlComments(filePath);
             });
+        }
 
+        // Here we'll register repositories and services
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
             var connectionStringResolver = new ConnectionStringResolver
             {
                 DB_HOST = configuration.GetValue<string>("DB_HOST"),
@@ -79,12 +84,11 @@ namespace IgniteVMS
                 DB_PASS = configuration.GetValue<string>("DB_PASS")
             };
 
-            services.AddDbContext<PostgreSqlContext>(options => options.UseNpgsql(connectionStringResolver.getConnectionString));
-        }
+            // Modules
+            builder.RegisterModule(new ModuleBuilder()
+                .UseConnectionOwner(connectionStringResolver)
+                .Build());
 
-        // Here we'll register repositories and services
-        public void ConfigureContainer(ContainerBuilder builder)
-        {
             // Repositories
             builder.RegisterType<VolunteerRepository>().AsImplementedInterfaces().SingleInstance();
 
