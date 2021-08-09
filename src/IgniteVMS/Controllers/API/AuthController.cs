@@ -24,7 +24,12 @@ namespace IgniteVMS.Controllers.API
             this.authService = authService;
         }
 
+        /// <summary>
+        /// Logs a user in and returns some user information along with an HTTP-Only cookie that contains a JSON Web Token for authorization
+        /// </summary>
         [HttpPost("login")]
+        [ProducesResponseType(typeof(UserResponse), 200)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             try
@@ -49,7 +54,12 @@ namespace IgniteVMS.Controllers.API
             }
         }
 
+        /// <summary>
+        /// Creates a new user in the database, this is mainly for use if we need a new admin user
+        /// </summary>
         [HttpPost("create")]
+        [ProducesResponseType(typeof(UserResponse), 200)]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Create([FromBody] CreateUserRequest request)
         {
             try
