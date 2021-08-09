@@ -94,6 +94,8 @@ namespace IgniteVMS
                 var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
                 options.IncludeXmlComments(filePath);
+
+                options.EnableAnnotations();
             });
         }
 

@@ -4,6 +4,7 @@ using IgniteVMS.Entities;
 using IgniteVMS.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace IgniteVMS.Controllers.API
 {
@@ -28,8 +29,8 @@ namespace IgniteVMS.Controllers.API
         /// </summary>
         /// <example>test</example>
         [HttpGet]
-        [ProducesResponseType(typeof(MetricsResponse), 200)]
-        [ProducesResponseType(500)]
+        [SwaggerResponse(200, null, typeof(MetricsResponse))]
+        [SwaggerResponse(500)]
         public async Task<IActionResult> GetMetrics()
         {
             try
