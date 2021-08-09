@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using IgniteVMS.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace IgniteVMS.Controllers.API
 {
@@ -27,6 +29,7 @@ namespace IgniteVMS.Controllers.API
         /// </summary>
         /// <returns>All volunteer IDs</returns>
         [HttpGet]
+        [SwaggerResponse(200, null, typeof(IEnumerable<int>))]
         public async Task<IActionResult> GetAllVolunteerIDs()
         {
             // This is an example, remove this endpoint when you create the real ones.

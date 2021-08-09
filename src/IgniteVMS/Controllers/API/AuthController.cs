@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using IgniteVMS.Services.Contracts;
 using IgniteVMS.Entities;
 using Microsoft.AspNetCore.Http;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace IgniteVMS.Controllers.API
 {
@@ -24,7 +25,12 @@ namespace IgniteVMS.Controllers.API
             this.authService = authService;
         }
 
+        /// <summary>
+        /// Logs a user in and returns some user information along with an HTTP-Only cookie that contains a JSON Web Token for authorization
+        /// </summary>
         [HttpPost("login")]
+        [SwaggerResponse(200, null, typeof(UserResponse))]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             try
@@ -49,7 +55,12 @@ namespace IgniteVMS.Controllers.API
             }
         }
 
+        /// <summary>
+        /// Creates a new user in the database, this is mainly for use if we need a new admin user
+        /// </summary>
         [HttpPost("create")]
+        [SwaggerResponse(200, null, typeof(UserResponse))]
+        [ProducesResponseType(500)]
         public async Task<IActionResult> Create([FromBody] CreateUserRequest request)
         {
             try

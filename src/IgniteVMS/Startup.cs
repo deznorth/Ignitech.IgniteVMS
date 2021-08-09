@@ -94,6 +94,8 @@ namespace IgniteVMS
                 var fileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var filePath = Path.Combine(AppContext.BaseDirectory, fileName);
                 options.IncludeXmlComments(filePath);
+
+                options.EnableAnnotations();
             });
         }
 
@@ -117,6 +119,7 @@ namespace IgniteVMS
             // Repositories
             builder.RegisterType<AuthRepository>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<VolunteerRepository>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<MetricsRepository>().AsImplementedInterfaces().SingleInstance();
 
             // Services
             builder.RegisterType<AuthService>()
@@ -125,6 +128,7 @@ namespace IgniteVMS
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder.RegisterType<VolunteerService>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<MetricsService>().AsImplementedInterfaces().SingleInstance();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
