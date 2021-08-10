@@ -1,4 +1,5 @@
-﻿using IgniteVMS.Repositories.Contracts;
+﻿using IgniteVMS.Entities.Volunteers;
+using IgniteVMS.Repositories.Contracts;
 using IgniteVMS.Services.Contracts;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,15 +21,15 @@ namespace IgniteVMS.Services
             this.logger = logger;
             this.volunteerRepository = volunteerRepository;
         }
-        public async Task<IEnumerable<int>> GetAllVolunteerIDs()
+        public async Task<IEnumerable<Volunteer>> GetAllVolunteers()
         {
             try
             {
-                return await volunteerRepository.GetAllVolunteerIDs();
+                return await volunteerRepository.GetAllVolunteers();
             }
             catch (Exception e)
             {
-                logger.LogError(e, "Error retrieving all volunteer IDs");
+                logger.LogError(e, "Error retrieving all volunteers");
                 throw e;
             }
         }

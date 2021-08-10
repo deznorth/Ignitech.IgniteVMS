@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IgniteVMS.Services.Contracts;
@@ -25,18 +25,17 @@ namespace IgniteVMS.Controllers.API
         }
 
         /// <summary>
-        /// This is an example endpoint
+        /// Gets a list of all volunteers
         /// </summary>
-        /// <returns>All volunteer IDs</returns>
+        /// <returns></returns>
         [HttpGet]
         [SwaggerResponse(200, null, typeof(IEnumerable<int>))]
-        public async Task<IActionResult> GetAllVolunteerIDs()
+        public async Task<IActionResult> GetAllVolunteers()
         {
-            // This is an example, remove this endpoint when you create the real ones.
             try
             {
-                var volunteerIDs = await volunteerService.GetAllVolunteerIDs();
-                return Ok(volunteerIDs);
+                var volunteers = await volunteerService.GetAllVolunteers();
+                return Ok(volunteers);
             }
             catch (Exception e)
             {
