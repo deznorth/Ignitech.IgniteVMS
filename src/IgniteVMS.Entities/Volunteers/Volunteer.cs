@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IgniteVMS.Entities
+namespace IgniteVMS.Entities.Volunteers
 {
     public class Volunteer
     {
