@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import * as actions from './actions';
 
 const INITIAL_STATE = {
-  loading: false,
+  loading: true,
   metrics: null,
 };
 
