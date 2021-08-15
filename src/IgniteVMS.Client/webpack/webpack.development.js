@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
 const baseConfig = require('./webpack.base');
 
 const outputPath = path.join(__dirname, '../../IgniteVMS/wwwroot/dist');
@@ -56,6 +57,7 @@ module.exports = Object.assign({}, baseConfig, {
       activeModules: true,
       profile: true,
       percentBy: 'dependencies'
-    })
+    }),
+    new LiveReloadPlugin()
   ]),
 })
