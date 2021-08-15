@@ -3,15 +3,16 @@ import { lazy } from 'react';
 // Pages
 const ThemePage = lazy(() => import(/* webpackChunkName: "ivms-theme" */ 'pages/Theme'));
 const ExamplePage = lazy(() => import(/* webpackChunkName: "ivms-example" */ 'pages/Example'));
+const DashboardPage = lazy(() => import(/* webpackChunkName: "ivms-dashboard" */ 'pages/Dashboard'));
 
 export const SITEMAP_NAVBAR = {
-  // Dashboard: {
-  //   name: 'dashboard',
-  //   path: '/',
-  //   exact: true,
-  //   authRequired: true,
-  //   // component: StorePage,
-  // },
+  Dashboard: {
+    name: 'dashboard',
+    path: '/dashboard',
+    exact: true,
+    authRequired: true,
+    component: DashboardPage,
+  },
   // Volunteers: {
   //   name: 'volunteers',
   //   path: '/volunteers',
