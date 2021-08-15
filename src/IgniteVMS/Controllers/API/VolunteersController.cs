@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using IgniteVMS.Entities.Volunteers;
 using IgniteVMS.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -29,7 +30,7 @@ namespace IgniteVMS.Controllers.API
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [SwaggerResponse(200, null, typeof(IEnumerable<int>))]
+        [SwaggerResponse(200, null, typeof(IEnumerable<Volunteer>))]
         public async Task<IActionResult> GetAllVolunteers()
         {
             try
