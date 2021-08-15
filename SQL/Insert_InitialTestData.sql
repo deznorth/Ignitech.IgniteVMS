@@ -84,9 +84,9 @@ VALUES
 
 INSERT INTO "Volunteers" ("UserID", "FirstName", "LastName", "Email", "EmergencyContactID", "Approved")
 VALUES
-	(3, 'Marie', 'Adams', 'madams@test.test', 3, TRUE),
-	(4, 'Leroy', 'Jenkins', 'ljenkins@test.test', 4, TRUE),
-	(5, 'Darth', 'Vader', 'dvader@test.test', NULL, FALSE);
+	(3, 'Marie', 'Adams', 'madams@test.test', 3, 1),
+	(4, 'Leroy', 'Jenkins', 'ljenkins@test.test', 4, 1),
+	(5, 'Darth', 'Vader', 'dvader@test.test', NULL, 2);
 
 -- CenterPreferences
 DELETE FROM "CenterPreferences" *;

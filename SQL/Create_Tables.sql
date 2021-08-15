@@ -49,9 +49,10 @@ CREATE TABLE IF NOT EXISTS "Volunteers" (
 	"EmergencyContactID" int REFERENCES "EmergencyContacts" ("ContactID"),
 	"DriversLicenseFiled" boolean NOT NULL DEFAULT FALSE,
 	"SSNOnFile" boolean NOT NULL DEFAULT FALSE,
-	"Approved" boolean, -- NULL means Pending Approval
+	"Approved" int NOT NULL DEFAULT 0, -- 0 = Pending, 1 = Approved, 2 = Denied
 	"CreatedAt" timestamp NOT NULL DEFAULT NOW(),
-	"UpdatedAt" timestamp
+	"UpdatedAt" timestamp,
+	CONSTRAINT chk_approved CHECK ("Approved" IN (0, 1, 2))
 );
 
 -- AvailabilityTimes
