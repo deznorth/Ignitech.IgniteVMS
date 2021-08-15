@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
+import { CalendarEvent } from 'react-bootstrap-icons';
 import * as actions from './modules/actions';
 
 import './styles.scss';
@@ -59,6 +61,32 @@ const DashboardPage = props => {
             <Link to="/opportunities">
               <Button>View All</Button>
             </Link>
+          </div>
+          <div className={`${cn}_card_body upcomingopportunities`}>
+            {
+              loading ? <Spinner animation="border" /> : (
+                <table>
+                  <tbody>
+                    {
+                      metrics.upcomingOpportunities.map(opportunity => (
+                        <tr
+                          key={opportunity.opportunityID}
+                          className="upcomingopportunities_row"
+                        >
+                          <td className="upcomingopportunities_date" width="80px">
+                            <CalendarEvent />
+                            {moment(opportunity.startsAt).format('DD MMM')}
+                          </td>
+                          <td className="upcomingopportunities_title">
+                            {opportunity.title}
+                          </td>
+                        </tr>
+                      ))
+                    }
+                  </tbody>
+                </table>
+              )
+            }
           </div>
         </div>
       </div>

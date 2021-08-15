@@ -10,7 +10,6 @@ function* getMetricsData() {
     log('Retrieving metrics...');
     yield put(actions.fetchingMetrics());
     const result = yield call(proxies.getMetrics);
-    console.log(result);
     yield put(actions.fetchedMetrics(result.data));
   } catch(err) {
     log('Error retrieving metrics');

@@ -1,3 +1,4 @@
+@import 'util/styles/ivms-vars.scss';
 
 .dashboardpage {
   display: flex;
@@ -29,6 +30,25 @@
       justify-content: center;
       align-items: center;
       padding-top: 2rem;
+    }
+
+    &_body.upcomingopportunities {
+      padding-top: 2rem;
+
+      .upcomingopportunities {
+        &_row {
+          display: flex;
+          align-items: center;
+        }
+        &_date {
+          display: flex;
+          align-items: center;
+          color: $gray-500;
+          svg {
+            margin-right: .5rem;
+          }
+        }
+      }
     }
   }
 }
