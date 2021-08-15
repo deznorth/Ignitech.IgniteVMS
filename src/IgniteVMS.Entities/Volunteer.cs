@@ -16,7 +16,7 @@ namespace IgniteVMS.Entities
         public int? EmergencyContactID { get; set; }
         public bool DriversLicenseFiled { get; set; }
         public bool SSNOnFile { get; set; }
-        public bool? Approved { get; set; } = null;
+        public int Approved { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }
