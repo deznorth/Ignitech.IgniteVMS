@@ -43,5 +43,24 @@ namespace IgniteVMS.Controllers.API
                 return new StatusCodeResult(500);
             }
         }
+
+        /// <summary>
+        /// Gets a volunteer by ID
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{volunteerId}")]
+        [SwaggerResponse(200, null, typeof(Volunteer))]
+        public async Task<IActionResult> GetVolunteerByID(int volunteerId)
+        {
+            try
+            {
+                var volunteers = await volunteerService.GetVolunteerByID(volunteerId);
+                return Ok(volunteers);
+            }
+            catch (Exception e)
+            {
+                return new StatusCodeResult(500);
+            }
+        }
     }
 }

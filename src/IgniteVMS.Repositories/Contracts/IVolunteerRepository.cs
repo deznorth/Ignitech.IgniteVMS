@@ -9,7 +9,9 @@ namespace IgniteVMS.Repositories.Contracts
 {
     public interface IVolunteerRepository
     {
-        // This is an example
         public Task<IEnumerable<Volunteer>> GetAllVolunteers();
+        public Task<Volunteer> GetVolunteerByID(int volunteerId);
+        public Task<IEnumerable<Qualification>> GetVolunteerQualifications(int volunteerId);
+        public Task<IEnumerable<AvailabilityTime>> GetAvailabilityTimes(int volunteerId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace IgniteVMS.Entities.Volunteers
 {
@@ -19,5 +20,12 @@ namespace IgniteVMS.Entities.Volunteers
         public bool? Approved { get; set; } = null;
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        // External Information
+        public UserResponse User { get; set; }
+        public EmergencyContact EmergencyContact { get; set; }
+        public IEnumerable<Center> CenterPreferences { get; set; }
+        public IEnumerable<Qualification> VolunteerQualifications { get; set; }
+        public IEnumerable<AvailabilityTime> AvailabilityTimes { get; set; }
     }
 }
