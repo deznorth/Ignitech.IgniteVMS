@@ -119,6 +119,7 @@ namespace IgniteVMS
             // Repositories
             builder.RegisterType<AuthRepository>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<VolunteerRepository>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<OpportunityRepository>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<MetricsRepository>().AsImplementedInterfaces().SingleInstance();
 
             // Services
@@ -128,6 +129,7 @@ namespace IgniteVMS
                 .AsImplementedInterfaces()
                 .SingleInstance();
             builder.RegisterType<VolunteerService>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<OpportunityService>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<MetricsService>().AsImplementedInterfaces().SingleInstance();
         }
 
