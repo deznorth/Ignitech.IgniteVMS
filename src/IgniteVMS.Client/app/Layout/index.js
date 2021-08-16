@@ -19,6 +19,7 @@ const Layout = props => {
   return (
     <div className="ivms-layout">
       <NavBar />
+
       <div className="ivms-layout__container">
         {children}
       </div>
