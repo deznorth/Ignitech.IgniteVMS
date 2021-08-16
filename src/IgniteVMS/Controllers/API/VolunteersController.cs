@@ -42,11 +42,19 @@ namespace IgniteVMS.Controllers.API
                 return new StatusCodeResult(500);
             }
         }
-            // This is an example, remove this endpoint when you create the real ones.
+
+        /// <summary>
+        /// Gets a list of all volunteers
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{volunteerId}")]
+        [SwaggerResponse(200, null, typeof(IEnumerable<int>))]
+        public async Task<IActionResult> GetVolunteerByID(int volunteerId)
+        {
             try
             {
-                var volunteerIDs = await volunteerService.GetAllVolunteerIDs();
-                return Ok(volunteerIDs);
+                var volunteers = await volunteerService.GetVolunteerByID(volunteerId);
+                return Ok(volunteers);
             }
             catch (Exception e)
             {

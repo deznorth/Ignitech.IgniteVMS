@@ -10,5 +10,6 @@ namespace IgniteVMS.Repositories.Contracts
     {
         public Task<User> AuthenticateUser(LoginRequest request);
         public Task<UserResponse> SaveUser(User user);
+        public Task<UserResponse> GetUserByID(int userId);
     }
 }

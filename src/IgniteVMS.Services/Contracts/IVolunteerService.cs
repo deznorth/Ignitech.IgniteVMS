@@ -9,5 +9,6 @@ namespace IgniteVMS.Services.Contracts
     public interface IVolunteerService
     {
         public Task<IEnumerable<Volunteer>> GetAllVolunteers();
+        public Task<Volunteer> GetVolunteerByID(int volunteerId);
     }
 }
