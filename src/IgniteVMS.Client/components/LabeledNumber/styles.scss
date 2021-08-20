@@ -1,0 +1,20 @@
+@import 'util/styles/ivms-vars.scss';
+
+.labelednumber {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+
+  &_link {
+    color: $primary;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  &_value {
+    font-size: 3.6rem;
+    font-weight: 100;
+  }
+}

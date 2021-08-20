@@ -31,9 +31,9 @@ namespace IgniteVMS.Repositories
             {
                 var query = @$"
                     SELECT
-	                    COUNT(*) FILTER (WHERE ""Approved"" IS NULL) AS ""PendingVolunteers"",
-                        COUNT(*) FILTER(WHERE ""Approved"" = 1::boolean) AS ""ApprovedVolunteers"",
-	                    COUNT(*) FILTER(WHERE ""Approved"" = 0::boolean) AS ""DeniedVolunteers""
+                        COUNT(*) FILTER (WHERE ""Approved"" = 0) AS ""PendingVolunteers"",
+                        COUNT(*) FILTER(WHERE ""Approved"" = 1) AS ""ApprovedVolunteers"",
+                        COUNT(*) FILTER(WHERE ""Approved"" = 2) AS ""DeniedVolunteers""
                     FROM {DbTables.Volunteers} v
                 ";
 
