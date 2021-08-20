@@ -18,15 +18,15 @@ ON CONFLICT ("Username") DO NOTHING;
 -- EmergencyContacts
 DELETE FROM "EmergencyContacts" *;
 
-INSERT INTO "EmergencyContacts" ("Name", "Email", "HomePhoneNumber")
+INSERT INTO "EmergencyContacts" ("Name", "Email", "HomePhoneNumber", "CellPhoneNumber")
 VALUES
-	('John Legend', 'jlegend@test.test', '1231231234'),
-	('Ronald McDonald', 'rmcdonald@test.test', '1643571895');
+	('John Legend', 'jlegend@test.test', '1231231234', '8467532164'),
+	('Ronald McDonald', 'rmcdonald@test.test', '1643571895', '6459481563');
 
-INSERT INTO "EmergencyContacts" ("Name", "Email", "WorkPhoneNumber")
+INSERT INTO "EmergencyContacts" ("Name", "Email", "WorkPhoneNumber", "CellPhoneNumber")
 VALUES
-	('Doja Cat', 'dcat@test.test', '8467532164'),
-	('Bob Ross', 'bross@test.test', '6459481563');
+	('Doja Cat', 'dcat@test.test', '8467532164', '1643571895'),
+	('Bob Ross', 'bross@test.test', '6459481563', '6459481563');
 
 -- Qualifications
 INSERT INTO "Qualifications" ("Type", "Label")
