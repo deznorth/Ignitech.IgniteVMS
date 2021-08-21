@@ -13,5 +13,7 @@ namespace IgniteVMS.Repositories.Contracts
         public Task<Volunteer> GetVolunteerByID(int volunteerId);
         public Task<IEnumerable<Qualification>> GetVolunteerQualifications(int volunteerId);
         public Task<IEnumerable<AvailabilityTime>> GetAvailabilityTimes(int volunteerId);
+
+        public Task<Volunteer> CreateVolunteer(VolunteerCreateRequest request);
     }
 }

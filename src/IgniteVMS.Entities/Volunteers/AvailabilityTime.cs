@@ -8,7 +8,7 @@ namespace IgniteVMS.Entities.Volunteers
     {
         public int AvailabilityTimeID { get; set; }
         public int VolunteerID { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
     }
 }

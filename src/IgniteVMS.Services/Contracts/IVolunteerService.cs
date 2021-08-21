@@ -10,5 +10,6 @@ namespace IgniteVMS.Services.Contracts
     {
         public Task<IEnumerable<Volunteer>> GetAllVolunteers();
         public Task<Volunteer> GetVolunteerByID(int volunteerId);
+        public Task<Volunteer> CreateVolunteer(VolunteerCreateRequest request);
     }
 }

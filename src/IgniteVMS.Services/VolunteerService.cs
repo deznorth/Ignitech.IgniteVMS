@@ -54,5 +54,18 @@ namespace IgniteVMS.Services
                 throw e;
             }
         }
+
+        public async Task<Volunteer> CreateVolunteer(VolunteerCreateRequest request)
+        {
+            try
+            {
+                var volunteer = await volunteerRepository.CreateVolunteer(request);
+                return volunteer;
+            } catch (Exception e)
+            {
+                logger.LogError(e, "Error creating a volunteer");
+                throw e;
+            }
+        }
     }
 }

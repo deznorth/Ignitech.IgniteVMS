@@ -62,5 +62,24 @@ namespace IgniteVMS.Controllers.API
                 return new StatusCodeResult(500);
             }
         }
+
+        /// <summary>
+        /// Creates a volunteer
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [SwaggerResponse(200, null, typeof(Volunteer))]
+        public async Task<IActionResult> CreateVolunteer([FromBody] VolunteerCreateRequest request)
+        {
+            try
+            {
+                var volunteer = await volunteerService.CreateVolunteer(request);
+                return Ok(volunteer);
+            }
+            catch (Exception e)
+            {
+                return new StatusCodeResult(500);
+            }
+        }
     }
 }
