@@ -5,6 +5,7 @@ using IgniteVMS.Entities.Volunteers;
 using IgniteVMS.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Npgsql;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace IgniteVMS.Controllers.API
@@ -74,11 +75,20 @@ namespace IgniteVMS.Controllers.API
             try
             {
                 var volunteer = await volunteerService.CreateVolunteer(request);
-                return Ok(volunteer);
+                return new CreatedAtActionResult(nameof(GetVolunteerByID), "Volunteers", new { volunteerId = volunteer.VolunteerID }, volunteer);
             }
-            catch (Exception e)
+            catch (PostgresException e)
             {
-                return new StatusCodeResult(500);
+                switch (e.SqlState)
+                {
+                    case PostgresErrorCodes.UniqueViolation:
+                        return new ConflictResult();
+                    case PostgresErrorCodes.CheckViolation:
+                        return new BadRequestResult();
+                    default:
+                        return new StatusCodeResult(500);
+                }
+                
             }
         }
     }
