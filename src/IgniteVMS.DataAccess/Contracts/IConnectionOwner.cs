@@ -12,5 +12,7 @@ namespace IgniteVMS.DataAccess.Contracts
         Task Use(Func<NpgsqlConnection, Task> func);
         TResult UseSync<TResult>(Func<NpgsqlConnection, TResult> func);
         IAsyncEnumerable<TResult> Use<TResult>(Func<NpgsqlConnection, IAsyncEnumerable<TResult>> func);
+        Task<TResult> UseTransaction<TResult>(Func<NpgsqlConnection, NpgsqlTransaction, Task<TResult>> func);
+        Task UseTransaction(Func<NpgsqlConnection, NpgsqlTransaction, Task> func);
     }
 }
