@@ -66,6 +66,20 @@ namespace IgniteVMS.Services
             }
         }
 
+        public async Task<UserResponse> GetUserByID(int userId)
+        {
+            try
+            {
+                var user = await authRepository.GetUserByID(userId);
+                return user;
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, $"Error retrieving a user by ID");
+                throw e;
+            }
+        }
+
         public async Task<UserResponse> CreateUser(CreateUserRequest request)
         {
             try

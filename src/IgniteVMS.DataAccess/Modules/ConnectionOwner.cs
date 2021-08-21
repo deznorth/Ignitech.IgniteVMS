@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using IgniteVMS.DataAccess.Contracts;
 using Npgsql;
@@ -11,9 +10,10 @@ namespace IgniteVMS.DataAccess.Modules
     {
         private readonly string connectionString;
 
-        public ConnectionOwner(ConnectionStringResolver connectionStringResolver) =>
+        public ConnectionOwner(ConnectionStringResolver connectionStringResolver)
+        {
             this.connectionString = connectionStringResolver.getConnectionString;
-            
+        }
 
         public async Task<TResult> Use<TResult>(Func<NpgsqlConnection, Task<TResult>> func)
         {
@@ -49,6 +49,29 @@ namespace IgniteVMS.DataAccess.Modules
             await foreach (var result in func(conn))
             {
                 yield return result;
+            }
+        }
+
+        public async Task<TResult> UseTransaction<TResult>(Func<NpgsqlConnection, NpgsqlTransaction, Task<TResult>> func)
+        {
+            using (var cnxn = new NpgsqlConnection(connectionString))
+            {
+                await cnxn.OpenAsync().ConfigureAwait(false);
+                var transaction = cnxn.BeginTransaction();
+                var result = await func(cnxn, transaction).ConfigureAwait(false);
+                transaction.Dispose();
+                return result;
+            }
+        }
+
+        public async Task UseTransaction(Func<NpgsqlConnection, NpgsqlTransaction, Task> func)
+        {
+            using (var cnxn = new NpgsqlConnection(connectionString))
+            {
+                await cnxn.OpenAsync().ConfigureAwait(false);
+                var transaction = cnxn.BeginTransaction();
+                await func(cnxn, transaction).ConfigureAwait(false);
+                transaction.Dispose();
             }
         }
     }

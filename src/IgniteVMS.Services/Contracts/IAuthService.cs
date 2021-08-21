@@ -9,6 +9,7 @@ namespace IgniteVMS.Services.Contracts
     public interface IAuthService
     {
         public Task<LoginResponse> AuthenticateUser(LoginRequest request);
+        public Task<UserResponse> GetUserByID(int userId);
         public Task<UserResponse> CreateUser(CreateUserRequest request);
     }
 }

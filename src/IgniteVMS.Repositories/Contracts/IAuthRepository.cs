@@ -9,6 +9,7 @@ namespace IgniteVMS.Repositories.Contracts
     public interface IAuthRepository
     {
         public Task<User> AuthenticateUser(LoginRequest request);
+        public Task<UserResponse> GetUserByID(int userId);
         public Task<UserResponse> SaveUser(User user);
     }
 }

@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS "EmergencyContacts" (
 	"HomePhoneNumber" varchar(30),
 	"WorkPhoneNumber" varchar(30),
 	"CellPhoneNumber" varchar(30),
-	CONSTRAINT chk_phones CHECK ("HomePhoneNumber" IS NOT NULL OR "WorkPhoneNumber" IS NOT NULL)
+	CONSTRAINT chk_phones CHECK ("HomePhoneNumber" IS NOT NULL OR "WorkPhoneNumber" IS NOT NULL OR "CellPhoneNumber" IS NOT NULL)
 );
 
 -- Qualifications

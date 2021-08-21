@@ -38,6 +38,21 @@ namespace IgniteVMS.Repositories
             });
         }
 
+        public Task<UserResponse> GetUserByID(int userId)
+        {
+            return dbConnectionOwner.Use(conn =>
+            {
+                var query = @$"
+                    SELECT *
+                    FROM {DbTables.Users} u
+                    WHERE u.""UserID"" = @userId
+                ";
+
+                var result = conn.QueryFirstOrDefaultAsync<UserResponse>(query, new { userId });
+                return result;
+            });
+        }
+
         public async Task<UserResponse> SaveUser(User user)
         {
             try
