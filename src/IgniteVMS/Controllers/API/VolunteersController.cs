@@ -51,6 +51,7 @@ namespace IgniteVMS.Controllers.API
         /// <returns></returns>
         [HttpGet("{volunteerId}")]
         [SwaggerResponse(200, null, typeof(Volunteer))]
+        [SwaggerResponse(404, null)]
         public async Task<IActionResult> GetVolunteerByID(int volunteerId)
         {
             try
@@ -60,7 +61,7 @@ namespace IgniteVMS.Controllers.API
             }
             catch (Exception e)
             {
-                return new StatusCodeResult(500);
+                return new NotFoundResult();
             }
         }
 
@@ -69,7 +70,10 @@ namespace IgniteVMS.Controllers.API
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [SwaggerResponse(200, null, typeof(Volunteer))]
+        [SwaggerResponse(201, null, typeof(Volunteer))]
+        [SwaggerResponse(409, "The username was already taken")]
+        [SwaggerResponse(400, "One or more database checks failed")]
+        [SwaggerResponse(500, "An unexpected error ocurred")]
         public async Task<IActionResult> CreateVolunteer([FromBody] VolunteerCreateRequest request)
         {
             try
@@ -89,6 +93,25 @@ namespace IgniteVMS.Controllers.API
                         return new StatusCodeResult(500);
                 }
                 
+            }
+        }
+
+        /// <summary>
+        /// Deletes a volunteer by ID
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete("{volunteerId}")]
+        [SwaggerResponse(204, null)]
+        public async Task<IActionResult> DeleteVolunteerByID(int volunteerId)
+        {
+            try
+            {
+                var volunteers = await volunteerService.GetVolunteerByID(volunteerId);
+                return Ok(volunteers);
+            }
+            catch (Exception e)
+            {
+                return new StatusCodeResult(500);
             }
         }
     }

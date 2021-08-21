@@ -65,9 +65,9 @@ namespace IgniteVMS.Repositories
 
                 var multiResult = await conn.QueryMultipleAsync(query, new { volunteerId });
 
-                var result = multiResult.Read<Volunteer>().FirstOrDefault();
+                var result = multiResult.ReadFirstOrDefault<Volunteer>();
 
-                result.EmergencyContact = multiResult.Read<EmergencyContact>().First();
+                result.EmergencyContact = multiResult.ReadFirstOrDefault<EmergencyContact>();
 
                 result.CenterPreferences = multiResult.Read<Center>();
 
