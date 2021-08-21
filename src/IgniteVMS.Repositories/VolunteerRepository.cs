@@ -45,14 +45,18 @@ namespace IgniteVMS.Repositories
         {
             return dbConnectionOwner.Use(async conn =>
             {
-                var query = @$"
+                var query = $@"
                     SELECT *
                     FROM {DbTables.Volunteers} v
                     WHERE v.""VolunteerID"" = @volunteerId;
 
                     SELECT *
                     FROM {DbTables.EmergencyContacts} ec
-                    WHERE ec.""ContactID"" = @volunteerId;
+                    WHERE ec.""ContactID"" = (
+                        SELECT v.""EmergencyContactID""
+                        FROM {DbTables.Volunteers} v
+                        WHERE v.""VolunteerID"" = @volunteerId
+                    );
 
                     SELECT *
                     FROM {DbTables.Centers} c
