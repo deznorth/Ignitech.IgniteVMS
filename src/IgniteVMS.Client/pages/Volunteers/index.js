@@ -18,15 +18,18 @@ const  VolunteersPage = (props) => {
   let [query, setQuery] = useState('');
   let [sortBy, setSortBy] = useState("firstName");
   let [orderBy, setOrderBy] = useState('asc');
+ 
 
   const filteredVolunteers = volunteerData.filter(
     item => {
+      if (item.volunteerQualifications === null) {item.volunteerQualifications = ""};
+      if (item.centerPreferences === null) {item.centerPreferences = ""};
       return (
         item.firstName.toLowerCase().includes(query.toLowerCase()) ||
         item.lastName.toLowerCase().includes(query.toLowerCase()) ||
-        //item.centerPreferences.toLowerCase().includes(query.toLowerCase()) ||
-        item.approved.toString().includes(query.toString()) //||
-        //item.volunteerQualifications.toLowerCase().includes(query.toLowerCase())
+        item.volunteerQualifications.toLowerCase().includes(query.toLowerCase()) ||
+        item.centerPreferences.toLowerCase().includes(query.toLowerCase()) ||
+        item.approved.toString().includes(query.toString())
       )
     }
   ).sort((a,b) => {
@@ -70,12 +73,7 @@ const  VolunteersPage = (props) => {
         {filteredVolunteers
         .map(volunteerData => (
           <VolunteerList key={volunteerData.volunteerID}
-          volunteer={volunteerData}
-          onDeleteVolunteer = {
-            volunteerID => 
-            setVolunteerList(volunteerList.filter(volunteer => 
-              volunteer.volunteerID !== volunteerID))
-          }/>
+          volunteer={volunteerData}/>
           ))
         }
                 </tbody>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Check, CaretDownFill, Search} from 'react-bootstrap-icons';
+import { Check, CaretRightFill, Search} from 'react-bootstrap-icons';
 
 const DropDown = ({toggle, sortBy, onSortByChange, orderBy, onOrderByChange}) => {
     if (!toggle) {
@@ -7,7 +7,7 @@ const DropDown = ({toggle, sortBy, onSortByChange, orderBy, onOrderByChange}) =>
     }
     return (
         <>
-        {/* <div className="" role="menu" aria-orientation="vertical" aria-labelledby="options-menu"> */}
+        <div className='dropdow btn-group'>
           <button
             onClick = {() => onSortByChange('lastName')}
             className="dropdown-item"
@@ -33,7 +33,7 @@ const DropDown = ({toggle, sortBy, onSortByChange, orderBy, onOrderByChange}) =>
             onClick = {() => onOrderByChange('desc')}
             className="dropdown-item"
             role="menuitem">Desc {(orderBy === 'desc') && <Check />}</button>
-        {/* </div> */}
+            </div>
       </>
   
     )
@@ -43,24 +43,25 @@ const SearchForm = ({query, onQueryChange, sortBy, onSortByChange, orderBy, onOr
     let [toggleSort, setToggleSort] = useState(false);
 
     return (
-        <div className="">
-        <div className="">
-          <div className="">
+        
+        <div className="row">
+          <div class="form-group">
             <Search />
             <label htmlFor="query" className="sr-only" />
-          </div>
+          
           <input type="text" name="query" id="query" value={query}
           onChange={(e) => {onQueryChange(e.target.value)} }
             className="" placeholder="Search" />
-          <div >
+            </div>
+          <div className="col-sm" >
             <div className="dropdown">
               <button type="button" data-toggle="dropdown"
                 onClick = {()=> {setToggleSort(!toggleSort) }}
                 className="btn btn-primary" id="options-menu" aria-haspopup="true" aria-expanded="true">
-                Sort By <CaretDownFill className="" />
+                Sort By <CaretRightFill className="" />
               </button>
               <DropDown 
-                className="dropdown-menu"
+                className="dropdown dropdown-menu"
                 toggle={toggleSort}
                 sortBy={sortBy}
                 onSortByChange={mySort => onSortByChange(mySort)}
@@ -70,7 +71,6 @@ const SearchForm = ({query, onQueryChange, sortBy, onSortByChange, orderBy, onOr
             </div>
           </div>
         </div>
-      </div>
    
     )
 }
