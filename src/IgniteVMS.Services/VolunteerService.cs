@@ -24,7 +24,7 @@ namespace IgniteVMS.Services
             this.authService = authService;
             this.volunteerRepository = volunteerRepository;
         }
-        public async Task<IEnumerable<Volunteer>> GetAllVolunteers()
+        public async Task<IEnumerable<SimplifiedVolunteer>> GetAllVolunteers()
         {
             try
             {
@@ -64,6 +64,19 @@ namespace IgniteVMS.Services
             } catch (Exception e)
             {
                 logger.LogError(e, "Error creating a volunteer");
+                throw e;
+            }
+        }
+
+        public async Task DeleteVolunteer(int volunteerId)
+        {
+            try
+            {
+                await volunteerRepository.DeleteVolunteer(volunteerId);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "Error deleting a volunteer");
                 throw e;
             }
         }
