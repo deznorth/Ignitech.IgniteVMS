@@ -31,7 +31,7 @@ namespace IgniteVMS.Controllers.API
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [SwaggerResponse(200, null, typeof(IEnumerable<Volunteer>))]
+        [SwaggerResponse(200, null, typeof(IEnumerable<SimplifiedVolunteer>))]
         public async Task<IActionResult> GetAllVolunteers()
         {
             try

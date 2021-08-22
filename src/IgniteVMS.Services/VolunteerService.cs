@@ -24,7 +24,7 @@ namespace IgniteVMS.Services
             this.authService = authService;
             this.volunteerRepository = volunteerRepository;
         }
-        public async Task<IEnumerable<Volunteer>> GetAllVolunteers()
+        public async Task<IEnumerable<SimplifiedVolunteer>> GetAllVolunteers()
         {
             try
             {

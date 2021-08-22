@@ -27,16 +27,24 @@ namespace IgniteVMS.Repositories
 
         #region READ
 
-        public Task<IEnumerable<Volunteer>> GetAllVolunteers()
+        public Task<IEnumerable<SimplifiedVolunteer>> GetAllVolunteers()
         {
             return dbConnectionOwner.Use( conn =>
             {
                 var query = @$"
-                    SELECT *
+                    SELECT
+	                    v.*,
+                        string_agg(DISTINCT c.""Name"", ', ' ORDER BY c.""Name"") AS ""CenterPreferences"",
+	                    string_agg(DISTINCT q.""Label"", ', ' ORDER BY q.""Label"") AS ""VolunteerQualifications""
                     FROM {DbTables.Volunteers} v
+                    LEFT JOIN dbo.""CenterPreferences"" cp ON v.""VolunteerID"" = cp.""VolunteerID""
+                    LEFT JOIN dbo.""VolunteerQualifications"" vq ON v.""VolunteerID"" = vq.""VolunteerID""
+                    LEFT JOIN dbo.""Centers"" c ON cp.""CenterID"" = c.""CenterID""
+                    LEFT JOIN dbo.""Qualifications"" q ON vq.""QualificationID"" = q.""QualificationID""
+                    GROUP BY v.""VolunteerID""
                 ";
 
-                var result = conn.QueryAsync<Volunteer>(query);
+                var result = conn.QueryAsync<SimplifiedVolunteer>(query);
                 return result;
             });
         }
