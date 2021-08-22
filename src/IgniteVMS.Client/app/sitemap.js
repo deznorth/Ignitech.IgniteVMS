@@ -4,6 +4,10 @@ import { lazy } from 'react';
 const ThemePage = lazy(() => import(/* webpackChunkName: "ivms-theme" */ 'pages/Theme'));
 const ExamplePage = lazy(() => import(/* webpackChunkName: "ivms-example" */ 'pages/Example'));
 const DashboardPage = lazy(() => import(/* webpackChunkName: "ivms-dashboard" */ 'pages/Dashboard'));
+const LoginPage = lazy(() => import(/* webpackChunkName: "ivms-login" */ 'pages/Login'));
+const VolunteersPage = lazy(() => import(/* webpackChunkName: "ivms-volunteers" */ 'pages/Volunteers'));
+
+
 
 export const SITEMAP_NAVBAR = {
   Dashboard: {
@@ -42,5 +46,17 @@ export const SITEMAP = {
     path: '/',
     exact: true,
     component: ExamplePage,
+  },
+  Login: {
+    name: 'login',
+    path: '/login',
+    exact: true,
+    component: LoginPage,
+  },
+  Volunteers: {
+    name: 'volunteers',
+    path: '/volunteers',
+    exact: true,
+    component: VolunteersPage,
   },
 };
