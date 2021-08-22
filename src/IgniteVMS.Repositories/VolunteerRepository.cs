@@ -27,16 +27,24 @@ namespace IgniteVMS.Repositories
 
         #region READ
 
-        public Task<IEnumerable<Volunteer>> GetAllVolunteers()
+        public Task<IEnumerable<SimplifiedVolunteer>> GetAllVolunteers()
         {
             return dbConnectionOwner.Use( conn =>
             {
                 var query = @$"
-                    SELECT *
+                    SELECT
+	                    v.*,
+                        string_agg(DISTINCT c.""Name"", ', ' ORDER BY c.""Name"") AS ""CenterPreferences"",
+	                    string_agg(DISTINCT q.""Label"", ', ' ORDER BY q.""Label"") AS ""VolunteerQualifications""
                     FROM {DbTables.Volunteers} v
+                    LEFT JOIN dbo.""CenterPreferences"" cp ON v.""VolunteerID"" = cp.""VolunteerID""
+                    LEFT JOIN dbo.""VolunteerQualifications"" vq ON v.""VolunteerID"" = vq.""VolunteerID""
+                    LEFT JOIN dbo.""Centers"" c ON cp.""CenterID"" = c.""CenterID""
+                    LEFT JOIN dbo.""Qualifications"" q ON vq.""QualificationID"" = q.""QualificationID""
+                    GROUP BY v.""VolunteerID""
                 ";
 
-                var result = conn.QueryAsync<Volunteer>(query);
+                var result = conn.QueryAsync<SimplifiedVolunteer>(query);
                 return result;
             });
         }
@@ -305,8 +313,57 @@ namespace IgniteVMS.Repositories
                     throw;
                 }
             });
-
-            #endregion
         }
+
+        #endregion
+
+        #region UPDATE
+
+        #endregion
+
+        #region DELETE
+
+        public Task DeleteVolunteer(int volunteerId)
+        {
+            return dbConnectionOwner.UseTransaction(async (conn, transaction) =>
+            {
+                try
+                {
+                    /* Deleting the user will cascade delete the volunteer and that will cascade delete everything else
+                     * except emergency contacts, so we have to remember to delete it so it's not left dangling
+                    */
+                    var selectVolunteer = $@"
+                            SELECT v.""UserID"", v.""EmergencyContactID""
+                            FROM {DbTables.Volunteers} v
+                            WHERE v.""VolunteerID"" = @volunteerId
+                        ";
+
+                    var target = await conn.QueryFirstAsync<Volunteer>(selectVolunteer, new { volunteerId }, transaction);
+
+                    var deleteUser = $@"
+                            DELETE FROM {DbTables.Users}
+                            WHERE ""UserID"" = @UserID
+                        ";
+
+                    await conn.ExecuteAsync(deleteUser, new { target.UserID }, transaction);
+
+                    var deleteEmergencyContact = $@"
+                            DELETE FROM {DbTables.EmergencyContacts}
+                            WHERE ""ContactID"" = @EmergencyContactID
+                        ";
+
+                    await conn.ExecuteAsync(deleteEmergencyContact, new { target.EmergencyContactID }, transaction);
+
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            });
+        }
+
+        #endregion
     }
 }
