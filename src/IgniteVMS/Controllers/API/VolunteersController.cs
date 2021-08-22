@@ -106,8 +106,8 @@ namespace IgniteVMS.Controllers.API
         {
             try
             {
-                var volunteers = await volunteerService.GetVolunteerByID(volunteerId);
-                return Ok(volunteers);
+                await volunteerService.DeleteVolunteer(volunteerId);
+                return new NoContentResult();
             }
             catch (Exception e)
             {

@@ -67,5 +67,18 @@ namespace IgniteVMS.Services
                 throw e;
             }
         }
+
+        public async Task DeleteVolunteer(int volunteerId)
+        {
+            try
+            {
+                await volunteerRepository.DeleteVolunteer(volunteerId);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "Error deleting a volunteer");
+                throw e;
+            }
+        }
     }
 }
